@@ -1,7 +1,9 @@
 import { VitePWA } from 'vite-plugin-pwa'
+import vercel from 'vite-plugin-vercel';
 
 export default {
     plugins: [
+        vercel(),
         VitePWA({
             registerType: 'autoUpdate',
             workbox: {
