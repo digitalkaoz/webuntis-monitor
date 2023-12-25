@@ -104,8 +104,8 @@ export default async function handler(request) {
 
         return new Response(JSON.stringify({
             customTitle: meta.customTitle,
-            lastUpdate: meta.lastUpdate,
-            date:meta.date,
+            lastUpdate: data.lastUpdate,
+            date:data.date,
             classes: getClassesFromResponse(data),
             data: getDataFromResponse(data),
         }), {

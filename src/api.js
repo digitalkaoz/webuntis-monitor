@@ -6,4 +6,3 @@ export const getData = (date) => {
         .then(r => r.json())
     ;
 }
-
