@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+header nav {
+    @apply flex items-end justify-between bg-teal-500 p-6 dark:bg-gray-800;
+
+    .logo-container {
+        @apply flex items-center flex-shrink-0 text-white mr-6 flex-col md:flex-row relative top-0;
+        @screen md {
+            top:-9px;
+        }
+        span, h1 {
+            @apply font-semibold text-xl tracking-tight flex-grow pt-4 md:pt-0;
+            line-height: 0;
+        }
+        #updated {
+            @apply text-sm font-light ml-4 pt-4 md:pt-0;
+        }
+    }
+
+    .links-container {
+        @apply w-full flex flex-grow items-center lg:w-auto justify-between;
+
+        input, select {
+            @apply text-black;
+        }
+    }
+
+    #settings-button button {
+        @apply inline-block text-sm p-2 scale-75 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white dark:hover:bg-gray-800 dark:hover:text-gray-600;
+    }
+}
+
+main {
+    @apply flex-grow relative w-full overflow-auto;
+
+    #table {
+        @apply caption-bottom text-sm w-full relative;
+        thead {
+            @apply border-b;
+        }
+        thead tr {
+            @apply border-b transition-colors;
+            th {
+                @apply h-12 px-4 text-left align-middle font-medium sticky top-0 bg-teal-800 dark:bg-gray-600 text-white;
+            }
+        }
+
+        tbody tr {
+            @apply border-b transition-colors ;
+            td {
+                @apply p-4 align-middle font-medium;
+            }
+        }
+    }
+}
+
+footer {
+    @apply bg-teal-500 rounded-lg shadow m-4 dark:bg-gray-800;
+
+    .footer-container {
+        @apply w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between flex justify-between;
+
+        .copy {
+            @apply text-sm text-white sm:text-center;
+        }
+
+        ul {
+            @apply flex flex-wrap items-center mt-3 text-sm font-medium text-white sm:mt-0 justify-end;
+
+            a {
+                @apply hover:underline me-4 md:me-6;
+            }
+        }
+    }
+}
+
+dialog {
+    @apply border border-teal-500 p-6 dark:border-gray-800 rounded;
+    form {
+        @apply mt-12;
+        label {
+            @apply pr-4 font-bold;
+            input {
+                @apply mx-4  pl-2 font-light border rounded border-teal-500 dark:border-gray-800 h-10;
+            }
+        }
+        button {
+            @apply p-2 font-light border rounded bg-teal-500 dark:bg-gray-800 text-white !important;
+        }
+    }
+
+    .close {
+        @apply absolute right-4 top-2 cursor-pointer text-2xl;
+    }
+
+    &::backdrop {
+        background-image: radial-gradient(
+                circle,
+                rgb(20 184 166),
+                rgb(107 114 128),
+                rgb(31 41 55)
+        );
+        opacity: 0.75;
+    }
+
+}

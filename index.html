@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="mask-icon" href="/maskable-icon-512x512.png" color="#FFFFFF">
+    <meta name="theme-color" content="#14B8A6">
+
+    <title>WebUntis Monitor</title>
+    <meta name="description" content="filterable WebUntis Monitor">
+</head>
+<body class="flex flex-col h-screen">
+
+<header>
+    <nav>
+        <div class="logo-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="mr-2">
+                <path fill="none" d="M0 0h24v24H0z"/>
+                <path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                <path fill="currentColor" d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+            </svg>
+            <h1 id="title">WebUntis X</h1>
+            <span id="updated"></span>
+        </div>
+
+        <div class="links-container">
+            <div class="text-sm md:flex-grow">
+                <label for="class" class="text-sm px-4 leading-none text-white">Klasse
+                    <select id="class"></select>
+                </label>
+            </div>
+            <div class="text-sm md:flex-grow">
+                <label for="date" class="text-sm px-4 leading-none text-white">Datum
+                    <input id="date" type="date"/>
+                </label>
+            </div>
+            <div class="text-sm" id="settings-button"></div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <table id="table">
+        <thead>
+        <tr>
+            <th scope="col">Klasse</th>
+            <th scope="col">Zeit</th>
+            <th scope="col">Stunde</th>
+            <th scope="col">Lehrer</th>
+            <th scope="col">Fach</th>
+            <th scope="col">Raum</th>
+            <th scope="col">Info</th>
+            <th scope="col">Vertretungstext</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</main>
+
+<footer>
+    <div class="footer-container">
+        <span class="copy">© 2023 <a href="https://flowbite.com/" class="hover:underline">digitalkaoz™</a></span>
+        <ul>
+            <li>
+                <a href="#">Code</a>
+            </li>
+            <li>
+                <a href="#">Issues</a>
+            </li>
+            <li>
+                <a href="#">Feature Requests</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+<div id="settings"></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
