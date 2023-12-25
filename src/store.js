@@ -1,7 +1,7 @@
 import {reactive} from "@arrow-js/core";
 
 import {getClassesFromResponse} from "./webuntis.js";
-import {isoDateFromDate} from "./date.js";
+import {isoDateFromDate, isoDateFromNumberDate} from "./date.js";
 
 export const store = reactive({
     classes: [],
@@ -28,13 +28,21 @@ const getCookie = (name) => {
 }
 
 export const initializeStore = (data) => {
-    const classes = getClassesFromResponse(data)
+    // classes
+    const classes = data.classes
     if (store.currentClass && classes.indexOf(store.currentClass) === -1) {
         classes.push(store.currentClass)
     }
-
     store.classes = ["Alle", ...classes]
-    store.data = getDataFromResponse(data)
+
+    // dates
+    document.getElementById('updated').innerHTML = data.lastUpdate
+    if (data.date) {
+        store.date = isoDateFromNumberDate(data.date)
+    }
+
+    // rows
+    store.data = data.data
 }
 
 export const initializeState = () => {
@@ -69,20 +77,4 @@ const loadSchool = (hash) => {
     if (window.location.hash && hash.has('school')) {
         store.school = hash.get('school')
     }
-}
-
-const getDataFromResponse = (data) => {
-    return data.rows.map((r) => ({
-        class: r.group.split(' ')[0],
-        hour: r.data[0],
-        timeRange: r.data[1],
-        lecture: r.data[2],
-        id: r.data[3] + r.data[0],
-        replacement: r.data[4],
-        room: r.data[5],
-        teacher: r.data[6],
-        info: r.data[7],
-        comment: r.data[8],
-        raw: r
-    }))
 }

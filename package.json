@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && mv dist .vercel/output/static",
     "preview": "vite preview",
     "test": "vitest",
     "pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.png"
@@ -22,6 +22,7 @@
     "vitest": "^1.1.0"
   },
   "dependencies": {
-    "@arrow-js/core": "^1.0.0-alpha.9"
+    "@arrow-js/core": "^1.0.0-alpha.9",
+    "@vercel/analytics": "^1.1.1"
   }
 }

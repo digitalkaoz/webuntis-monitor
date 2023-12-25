@@ -1,5 +1,4 @@
 import {initializeStore, store} from "../store.js";
-import {html} from "@arrow-js/core";
 import {getData} from "../api.js";
 import {dateFromIsoString} from "../date.js";
 
@@ -12,7 +11,7 @@ export const dateChooser = (elem) => {
 
     store.$on('date', (d) => {
         getData(dateFromIsoString(d))
-            .then((d) => initializeStore(d))
+            .then(initializeStore)
             .catch(console.error)
     })
 }
