@@ -19,6 +19,9 @@ export const settingsDialog = (elem) => {
                 <label>Schule<input required value="${store.school}" @input="${e => { formData.school = e.target.value }}"></label>
                 <button type="submit">Speichern</button>
             </form>
+            <div>
+                <a href="https://webuntis.com/" rel="nofollow" target="_blank" class="search-link">https://webuntis.com/</a>
+            </div>
         </dialog>
     `(elem)
 

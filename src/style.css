@@ -3,19 +3,13 @@
 @tailwind utilities;
 
 header nav {
-    @apply flex items-end justify-between bg-teal-500 p-6 dark:bg-gray-800;
+    @apply flex items-center justify-between bg-teal-500 p-6 dark:bg-gray-800 flex-col md:flex-row;
 
     .logo-container {
-        @apply flex items-center flex-shrink-0 text-white mr-6 flex-col md:flex-row relative top-0;
-        @screen md {
-            top:-9px;
-        }
+        @apply flex items-center flex-shrink-0 text-white mr-0 md:mr-6 flex-row relative top-0 mb-4 md:mb-0;
         span, h1 {
             @apply font-semibold text-xl tracking-tight flex-grow pt-4 md:pt-0;
             line-height: 0;
-        }
-        #updated {
-            @apply text-sm font-light ml-4 pt-4 md:pt-0;
         }
     }
 
@@ -23,7 +17,7 @@ header nav {
         @apply w-full flex flex-grow items-center lg:w-auto justify-between;
 
         input, select {
-            @apply text-black;
+            @apply text-black p-1;
         }
     }
 
@@ -67,7 +61,7 @@ footer {
         }
 
         ul {
-            @apply flex flex-wrap items-center mt-3 text-sm font-medium text-white sm:mt-0 justify-end;
+            @apply flex flex-wrap items-center m-0 text-sm font-medium text-white justify-end;
 
             a {
                 @apply hover:underline me-4 md:me-6;
@@ -83,7 +77,7 @@ dialog {
         label {
             @apply pr-4 font-bold;
             input {
-                @apply mx-4  pl-2 font-light border rounded border-teal-500 dark:border-gray-800 h-10;
+                @apply mx-4  pl-2 font-light border rounded border-teal-500 dark:border-gray-800 h-10 w-32;
             }
         }
         button {
@@ -105,4 +99,15 @@ dialog {
         opacity: 0.75;
     }
 
+}
+
+nav .logo-container .time, td .time {
+    @apply text-sm font-light ml-4 pt-4 md:pt-0;
+}
+td .time  {
+    @apply text-sm font-light m-0 p-0;
+}
+
+.search-link {
+    @apply block text-center text-sm underline py-2;
 }

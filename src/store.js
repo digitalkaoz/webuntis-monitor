@@ -11,19 +11,23 @@ export const store = reactive({
     showSettings: false
 })
 
-store.$on('school', (school) => storeInCookie('school', school))
+store.$on('school', (school) => storeKv('school', school))
 
 store.$on('currentClass', (cls) => {
-    storeInCookie('class', cls);
+    storeKv('class', cls);
     window.location.hash = `class=${cls}`
 })
 
-const storeInCookie = (key, value) => {
-    document.cookie = `${key}=${value !== undefined ? value : ''};`
+const storeKv = (key, value) => {
+    if (value === undefined) {
+        localStorage.removeItem(key)
+    } else {
+        localStorage.setItem(key, value)
+    }
 }
 
-const getCookie = (name) => {
-    return (document.cookie ? document.cookie.split(';') : []).find(c => c.trim().startsWith(name))
+const getKv = (name) => {
+    return localStorage.getItem(name) || undefined
 }
 
 export const initializeStore = (data) => {
@@ -34,6 +38,7 @@ export const initializeStore = (data) => {
     }
     store.classes = ["Alle", ...classes]
 
+    document.getElementById('title').innerHTML = data.customTitle
     // dates
     document.getElementById('updated').innerHTML = data.lastUpdate
     if (data.date) {
@@ -51,29 +56,21 @@ export const initializeState = () => {
 }
 
 const loadClass = (hash) => {
-    // read from cookie
-    const clsCookie = getCookie('class')
-    if (clsCookie) {
-        store.currentClass = clsCookie.trim().replace('class=', '') || undefined
-        return
-    }
+    // read from localstorage
+    store.currentClass = getKv('class')
 
     // read from hash
-    if (window.location.hash && hash.has('class')) {
+    if (store.currentClass === undefined && window.location.hash && hash.has('class')) {
         store.currentClass = hash.get('class')
     }
 }
 
 const loadSchool = (hash) => {
-    // read from cookie
-    const schoolCookie = getCookie('school');
-    if (schoolCookie) {
-        store.school = schoolCookie.trim().replace('school=', '')
-        return
-    }
+    // read from local storage
+    store.school = getKv('school');
 
     // read from hash
-    if (window.location.hash && hash.has('school')) {
+    if (store.school === undefined && window.location.hash && hash.has('school')) {
         store.school = hash.get('school')
     }
 }

@@ -4,22 +4,11 @@ import {store} from "../src/store.js";
 describe('store', () => {
 
     // @vitest-environment happy-dom
-    test('store in cookie', () => {
-        document.cookie = ''
+    test('store in kv', () => {
         store.school = 'foo';
-        expect(document.cookie).toBe('school=foo')
+        expect(localStorage.getItem('school')).toBe('foo')
 
         store.school = undefined;
-        expect(document.cookie).toBe('school=')
+        expect(localStorage.getItem('school')).toBe(null)
     })
-
-    // @vitest-environment happy-dom
-    test('store in cookie with existing field', () => {
-        document.cookie = ''
-        store.school = 'foo';
-        store.currentClass = '5c'
-
-        expect(document.cookie).toBe('school=foo; class=5c')
-    })
-
 })
