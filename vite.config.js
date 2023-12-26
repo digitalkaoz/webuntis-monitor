@@ -2,6 +2,8 @@ import { VitePWA } from 'vite-plugin-pwa'
 import vercel from 'vite-plugin-vercel';
 
 export default {
+    vercel: {
+    },
     plugins: [
         vercel(),
         VitePWA({

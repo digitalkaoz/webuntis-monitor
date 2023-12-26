@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && mv dist .vercel/output/static",
+    "build": "mv api _api && vite build && mv _api api && mv dist .vercel/output/static",
     "preview": "vite preview",
     "test": "vitest",
     "pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.png"

@@ -1,7 +1,7 @@
-import {dateToNumberDate} from "../src/date.js";
-
 // Should run on edge runtime
-export const edge = true;
+export const config = {
+    runtime: 'edge',
+}
 
 // Always add those header to this endpoint
 
