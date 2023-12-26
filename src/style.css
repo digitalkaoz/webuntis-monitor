@@ -51,13 +51,15 @@ main {
 }
 
 footer {
-    @apply bg-teal-500 rounded-lg shadow m-4 dark:bg-gray-800;
+    @apply bg-teal-500 rounded-lg shadow m-4 dark:bg-gray-800 mb-4;
+
+    margin:10px auto;
 
     .footer-container {
         @apply w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between flex justify-between;
 
         .copy {
-            @apply text-sm text-white sm:text-center;
+            @apply text-sm text-white sm:text-center mr-4 mt-1 md:mt-0;
         }
 
         ul {
@@ -110,4 +112,8 @@ td .time  {
 
 .search-link {
     @apply block text-center text-sm underline py-2;
+}
+
+td.empty-text {
+    @apply text-center
 }

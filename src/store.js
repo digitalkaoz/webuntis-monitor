@@ -1,12 +1,14 @@
 import {reactive} from "@arrow-js/core";
 
-import {isoDateFromDate, isoDateFromNumberDate} from "./date.js";
+import {dateFromIsoString, isoDateFromDate, isoDateFromNumberDate} from "./date.js";
 
 export const store = reactive({
     classes: [],
     currentClass: undefined,
     school: undefined,
     data: [],
+    filteredData: [],
+    emptyText: undefined,
     date: isoDateFromDate(new Date()),
     showSettings: false
 })
@@ -16,6 +18,15 @@ store.$on('school', (school) => storeKv('school', school))
 store.$on('currentClass', (cls) => {
     storeKv('class', cls);
     window.location.hash = `class=${cls}`
+})
+
+store.$on('data', (rows) => {
+    store.filteredData = rows.filter(r => store.currentClass === undefined || r.class === store.currentClass)
+    if (store.filteredData.length === 0) {
+        store.emptyText = `Keine Planänderung für ${store.currentClass ? `die ${store.currentClass}` : 'All'} am ${dateFromIsoString(store.date).toLocaleDateString([navigator.language])}.`
+    } else {
+        store.emptyText = undefined;
+    }
 })
 
 const storeKv = (key, value) => {
