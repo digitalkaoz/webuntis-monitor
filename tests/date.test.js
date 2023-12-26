@@ -20,7 +20,7 @@ describe('date utils', () => {
     })
 
     test('converts js date to webuntis date', () => {
-        const d = dateToNumberDate(new Date(2024, 0, 8))
+        const d = dateToNumberDate(new Date("2024-01-08 UTC"))
 
         expect(d).toBe(numberDate)
     })
@@ -40,7 +40,7 @@ describe('date utils', () => {
     })
 
     test('iso date from date', () => {
-        const d = isoDateFromDate(new Date(2024, 0, 8))
+        const d = isoDateFromDate(new Date("2024-01-08 UTC"))
 
         expect(d).toBe('2024-01-08')
     })
