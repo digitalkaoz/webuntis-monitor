@@ -1,4 +1,5 @@
-import { inject } from '@vercel/analytics';
+import {inject} from '@vercel/analytics';
+import {w} from "@arrow-js/core";
 
 import './style.css'
 import {getData} from "./api.js";
@@ -9,8 +10,6 @@ import {dateChooser} from "./components/dateChooser.js";
 import {settingsDialog} from "./components/settingsDialog.js";
 import {settingsButton} from "./components/settingsButton.js";
 import {table} from "./components/table.js";
-import {w} from "@arrow-js/core";
-
 
 inject();
 initializeState();

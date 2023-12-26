@@ -1,6 +1,5 @@
 import {reactive} from "@arrow-js/core";
 
-import {getClassesFromResponse} from "./webuntis.js";
 import {isoDateFromDate, isoDateFromNumberDate} from "./date.js";
 
 export const store = reactive({
