@@ -1,4 +1,5 @@
 import {inject} from '@vercel/analytics';
+import {injectSpeedInsights} from '@vercel/speed-insights';
 import {w} from "@arrow-js/core";
 
 import './style.css'
@@ -11,7 +12,10 @@ import {settingsDialog} from "./components/settingsDialog.js";
 import {settingsButton} from "./components/settingsButton.js";
 import {table} from "./components/table.js";
 
+// vercel metrics
 inject();
+injectSpeedInsights({route:'/'});
+
 initializeState();
 
 settingsDialog(document.getElementById('settings'));
