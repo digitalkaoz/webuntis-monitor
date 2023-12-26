@@ -4,6 +4,8 @@ filterable & timetravelable
 
 https://webuntis-monitor.vercel.app/
 
+[![Node.js CI](https://github.com/digitalkaoz/webuntis-monitor/actions/workflows/node.js.yml/badge.svg)](https://github.com/digitalkaoz/webuntis-monitor/actions/workflows/node.js.yml)
+
 ## Features
 
 * PWA
