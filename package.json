@@ -8,9 +8,11 @@
     "build": "mv api _api && vite build && mv _api api && mv dist .vercel/output/static",
     "preview": "vite preview",
     "test": "vitest",
-    "pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.png"
+    "pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.png",
+    "lint": "eslint src/**/ api/** --fix"
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin": "^1.5.1",
     "@vite-pwa/assets-generator": "^0.2.1",
     "autoprefixer": "^10.4.16",
     "happy-dom": "^12.10.3",

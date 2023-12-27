@@ -1,8 +1,6 @@
-import {reactive, w, watch} from "@arrow-js/core";
+import {reactive, watch} from "@arrow-js/core";
 
-import {dateFromIsoString, isoDateFromDate, isoDateFromNumberDate} from "./date.js";
-import {getData} from "./api.js";
-import {dateChooser} from "./components/dateChooser.js";
+import {dateFromIsoString, dateToNumberDate, isoDateFromDate, isoDateFromNumberDate} from "./date.js";
 
 export const store = reactive({
     classes: [],
@@ -12,22 +10,25 @@ export const store = reactive({
     filteredData: [],
     emptyText: undefined,
     date: isoDateFromDate(new Date()),
-    showSettings: false
+    showSettings: false,
+    title: undefined,
+    lastUpdatedAt: undefined,
+    error: undefined,
 })
 
 store.$on('school', (school) => {
-    if (!school) {
-        return
-    }
-
     storeKv('school', school)
-    fetchData(new Date())
+    if (school) {
+        fetchData(new Date())
+    }
 })
 
 //TODO access to DOM or window shouldnt be here, instead store those vars inside the store and use reactive templates
 store.$on('currentClass', (cls) => {
     storeKv('class', cls);
-    window.location.hash = `class=${cls}`
+    if (window) {
+        window.location.hash = `class=${cls}`
+    }
 })
 
 store.$on('date', (d) => fetchData(dateFromIsoString(d)))
@@ -40,13 +41,10 @@ watch(() => {
 const fetchData = (d) => {
     getData(d)
         .then(initializeStore)
-        .then(() => {
-            dateChooser(document.getElementById('date'));
-            document.getElementById('error').innerHTML = ""
-        })
+        .then(() => store.error = undefined)
         .catch((e) => {
             console.error(e)
-            document.getElementById('error').innerHTML = e.message
+            store.error = e
         })
 }
 
@@ -66,16 +64,11 @@ export const initializeStore = (data) => {
     if (store.currentClass && classes.indexOf(store.currentClass) === -1) {
         classes.push(store.currentClass)
     }
+
     store.classes = ["Alle", ...classes]
-
-    document.getElementById('title').innerHTML = data.customTitle
-    // dates
-    document.getElementById('updated').innerHTML = data.lastUpdate
-    if (data.date) {
-        store.date = isoDateFromNumberDate(data.date)
-    }
-
-    // rows
+    store.title = data.customTitle
+    store.lastUpdatedAt = data.lastUpdate
+    store.date = isoDateFromNumberDate(data.date)
     store.data = data.data
 }
 
@@ -103,4 +96,15 @@ const loadSchool = (hash) => {
     if (store.school === undefined && window.location.hash && hash.has('school')) {
         store.school = hash.get('school')
     }
+}
+
+const getData = (date) => {
+    return fetch(`${window.location.origin}/api/webuntis?school=${store.school}&date=${dateToNumberDate(date)}`)
+        .then(r => {
+            if (r.status >= 400) {
+                throw new Error(r.statusText)
+            }
+
+            return r.json()
+        });
 }

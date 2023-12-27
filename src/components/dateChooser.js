@@ -1,12 +1,9 @@
-import {initializeStore, store} from "../store.js";
-import {getData} from "../api.js";
-import {dateFromIsoString} from "../date.js";
+import { store } from '../store.js'
 
-export const dateChooser = (elem) => {
-    if (!elem.value) {
-        elem.value = store.date;
-    }
+export default (elem) => {
+  if (!elem.value) {
+    elem.value = store.date
+  }
 
-    elem.onchange = (e) => store.date = e.target.value;
-
+  elem.onchange = e => store.date = e.target.value
 }

@@ -19,7 +19,7 @@ pnpm install
 ```
 
 ```shell
-pnpm dev
+vercel dev
 ```
 
 ```shell
