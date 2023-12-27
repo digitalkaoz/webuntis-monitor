@@ -1,6 +1,8 @@
-import {reactive, watch} from "@arrow-js/core";
+import {reactive, w, watch} from "@arrow-js/core";
 
 import {dateFromIsoString, isoDateFromDate, isoDateFromNumberDate} from "./date.js";
+import {getData} from "./api.js";
+import {dateChooser} from "./components/dateChooser.js";
 
 export const store = reactive({
     classes: [],
@@ -13,17 +15,40 @@ export const store = reactive({
     showSettings: false
 })
 
-store.$on('school', (school) => storeKv('school', school))
+store.$on('school', (school) => {
+    if (!school) {
+        return
+    }
 
+    storeKv('school', school)
+    fetchData(new Date())
+})
+
+//TODO access to DOM or window shouldnt be here, instead store those vars inside the store and use reactive templates
 store.$on('currentClass', (cls) => {
     storeKv('class', cls);
     window.location.hash = `class=${cls}`
 })
 
+store.$on('date', (d) => fetchData(dateFromIsoString(d)))
+
 watch(() => {
     store.filteredData = store.data.filter(r => store.currentClass === undefined || r.class === store.currentClass)
     store.emptyText = store.filteredData.length === 0 ? `Keine Planänderung für ${store.currentClass ? `die ${store.currentClass}` : 'All'} am ${dateFromIsoString(store.date).toLocaleDateString([navigator.language])}.` : undefined
 })
+
+const fetchData = (d) => {
+    getData(d)
+        .then(initializeStore)
+        .then(() => {
+            dateChooser(document.getElementById('date'));
+            document.getElementById('error').innerHTML = ""
+        })
+        .catch((e) => {
+            console.error(e)
+            document.getElementById('error').innerHTML = e.message
+        })
+}
 
 const storeKv = (key, value) => {
     if (value === undefined) {
@@ -33,9 +58,7 @@ const storeKv = (key, value) => {
     }
 }
 
-const getKv = (name) => {
-    return localStorage.getItem(name) || undefined
-}
+const getKv = (name) => localStorage.getItem(name) || undefined;
 
 export const initializeStore = (data) => {
     // classes

@@ -3,6 +3,12 @@ import {store} from "./store.js";
 
 export const getData = (date) => {
     return fetch(`/api/webuntis?school=${store.school}&date=${dateToNumberDate(date)}`)
-        .then(r => r.json())
+        .then(r => {
+            if (r.status >= 400) {
+                throw new Error(r.statusText)
+            }
+
+            return r.json()
+        })
     ;
 }

@@ -117,3 +117,7 @@ td .time  {
 td.empty-text {
     @apply text-center
 }
+
+#error {
+    @apply text-center text-red-500;
+}

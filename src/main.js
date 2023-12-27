@@ -22,14 +22,3 @@ settingsDialog(document.getElementById('settings'));
 settingsButton(document.getElementById('settings-button'))
 classChooser(document.getElementById('class'))
 table(document.querySelector('#table tbody'))
-
-w(() => store.school, (school) => {
-    if (!school) {
-        return
-    }
-
-    getData(new Date())
-        .then(initializeStore)
-        .then(() => dateChooser(document.getElementById('date')))
-        .catch(console.error)
-})

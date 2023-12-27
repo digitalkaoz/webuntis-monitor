@@ -77,8 +77,13 @@ const request = (url, payload) => {
         "method": "POST",
     })
         .then(r => r.json())
-        .then(d => d.payload)
-        ;
+        .then(d => {
+            if (d.error) {
+                throw new Error(d.error.message)
+            }
+
+            return d.payload
+        });
 }
 const getMeta = (school) => {
     return request(`https://ikarus.webuntis.com/WebUntis/monitor/substitution/format?school=${school}`, {
@@ -115,9 +120,12 @@ export default async function handler(request) {
             }
         });
     } catch (e) {
-        return new Response(e, {
-            status: 400
+        return new Response("{}", {
+            status: 400,
+            statusText: e.message,
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
     }
-
 }

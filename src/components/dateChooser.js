@@ -9,9 +9,4 @@ export const dateChooser = (elem) => {
 
     elem.onchange = (e) => store.date = e.target.value;
 
-    store.$on('date', (d) => {
-        getData(dateFromIsoString(d))
-            .then(initializeStore)
-            .catch(console.error)
-    })
 }
