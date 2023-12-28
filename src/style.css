@@ -104,7 +104,7 @@ dialog {
 }
 
 nav .logo-container .time, td .time {
-    @apply text-sm font-light ml-4 pt-4 md:pt-0;
+    @apply text-sm font-light ml-4;
 }
 td .time  {
     @apply text-sm font-light m-0 p-0;

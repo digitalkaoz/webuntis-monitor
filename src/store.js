@@ -10,6 +10,7 @@ export const store = reactive({
     filteredData: [],
     emptyText: undefined,
     date: isoDateFromDate(new Date()),
+    serverDate: undefined,
     showSettings: false,
     title: undefined,
     lastUpdatedAt: undefined,
@@ -31,7 +32,11 @@ store.$on('currentClass', (cls) => {
     }
 })
 
-store.$on('date', (d) => fetchData(dateFromIsoString(d)))
+store.$on('date', (d) => {
+    if (d !== store.serverDate) {
+        fetchData(dateFromIsoString(d));
+    }
+})
 
 watch(() => {
     store.filteredData = store.data.filter(r => store.currentClass === undefined || r.class === store.currentClass)
@@ -68,6 +73,7 @@ export const initializeStore = (data) => {
     store.classes = ["Alle", ...classes]
     store.title = data.customTitle
     store.lastUpdatedAt = data.lastUpdate
+    store.serverDate = isoDateFromNumberDate(data.date)
     store.date = isoDateFromNumberDate(data.date)
     store.data = data.data
 }

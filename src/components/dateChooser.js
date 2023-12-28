@@ -5,5 +5,7 @@ export default (elem) => {
     elem.value = store.date
   }
 
+  store.$on('date', (v) => elem.value = v)
+
   elem.onchange = e => store.date = e.target.value
 }
