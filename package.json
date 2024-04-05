@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build:vite": "mv api _api && vite build && mv _api api",
-    "build": "mv api _api && vite build && mv _api api && mv dist .vercel/output/static",
+    "build": "mv api _api && vite build && mv _api api && mv dist/*.* .vercel/output/static",
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
