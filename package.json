@@ -25,7 +25,9 @@
     "vite-plugin-mkcert": "^1.17.5",
     "vite-plugin-pwa": "^0.19.8",
     "vite-plugin-vercel": "^5.0.5",
-    "vitest": "^1.4.0"
+    "vitest": "^1.4.0",
+    "workbox-core": "^7.0.0",
+    "workbox-precaching": "^7.0.0"
   },
   "dependencies": {
     "@arrow-js/core": "1.0.0-alpha.10",

@@ -1,3 +1,11 @@
+import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching'
+import { clientsClaim } from 'workbox-core'
+
+cleanupOutdatedCaches()
+precacheAndRoute(self.__WB_MANIFEST)
+
+self.skipWaiting()
+clientsClaim()
 
 let school;
 let cls;
@@ -27,7 +35,9 @@ const hashString = async function hashString(message) {
     const hashArray = Array.from(new Uint8Array(hashBuffer));                             // convert buffer to byte array
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');         // convert bytes to hex string
 }
+
 self.setInterval(() => {
+    console.log({cls, school})
     if (cls && school) {
         fetch(`/api/webuntis?school=${school}`)
             .then(res => res.json())
