@@ -1,6 +1,7 @@
 import {reactive, watch} from "@arrow-js/core";
 
 import {dateFromIsoString, dateToNumberDate, isoDateFromDate, isoDateFromNumberDate} from "./date.js";
+import {sendToWorker} from "./worker.js";
 
 export const store = reactive({
     classes: [],
@@ -22,6 +23,7 @@ store.$on('school', (school) => {
     if (school) {
         fetchData(new Date())
     }
+    sendToWorker(store.currentClass, store.school);
 })
 
 //TODO access to DOM or window shouldnt be here, instead store those vars inside the store and use reactive templates
@@ -30,6 +32,7 @@ store.$on('currentClass', (cls) => {
     if (window) {
         window.location.hash = `class=${cls}`
     }
+    sendToWorker(store.currentClass, store.school);
 })
 
 store.$on('date', (d) => {
@@ -82,6 +85,7 @@ export const initializeState = () => {
     const hashParams = document.location.hash ? new URLSearchParams(document.location.hash.substring(1)) : []
     loadClass(hashParams)
     loadSchool(hashParams)
+    sendToWorker(store.currentClass, store.school);
 }
 
 const loadClass = (hash) => {
