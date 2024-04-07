@@ -3,41 +3,48 @@ let cls;
 let currentHash;
 
 const showNotification = (date, title) => {
-    self.registration.showNotification(title, {
+    return self.registration.showNotification(title, {
         body: `Änderung am Vertretungsplan für die ${cls} am ${numberDateToDate(date).toLocaleDateString()}`,
         timestamp: Date.now(),
         icon: "./pwa-192x192.png",
         vibrate: [200, 100, 200, 100, 200, 100, 200],
-    }).catch(console.error);
+    }).catch(e => {
+        currentHash = undefined;
+        console.error(e)
+    })
 }
 
 self.setInterval(() => {
-    if (school) {
-        fetch(`/api/webuntis?school=${school}&date=${dateToNumberDate(new Date())}`)
-            .then(res => res.json())
-            .then((data) => {
-                const classes = filterClasses(data.data).map(hashableClass)
-                const hash = (!classes || classes.length === 0) ? Promise.resolve(undefined) : hashString(JSON.stringify({
-                    date: data.date,
-                    classes: classes
-                }))
-
-                return Promise.all([
-                    hash,
-                    Promise.resolve(data.date),
-                    Promise.resolve(data.customTitle)
-                ])
-            })
-            .then(data => {
-                if (data[0] !== undefined && data[0] !== currentHash) {
-                    console.log("change detected sending notification")
-                    currentHash = data[0];
-                    showNotification(data[1], data[2])
-                }
-            })
-            .catch(console.error);
+    if (!school) {
+        return
     }
-}, 3600 * 2); //every 2h
+    fetch(`/api/webuntis?school=${school}&date=${dateToNumberDate(new Date())}`)
+        .then(res => res.json())
+        .then((data) => {
+            const classes = filterClasses(data.data).map(hashableClass)
+            const hash = (!classes || classes.length === 0) ? Promise.resolve(undefined) : hashString(JSON.stringify({
+                date: data.date,
+                classes: classes
+            }))
+
+            return Promise.all([
+                hash,
+                Promise.resolve(data.date),
+                Promise.resolve(data.customTitle)
+            ])
+        })
+        .then(data => {
+            if (data[0] !== undefined && data[0] !== currentHash) {
+                console.log("change detected sending notification")
+                currentHash = data[0];
+                return showNotification(data[1], data[2])
+            }
+        })
+        .catch(e => {
+            currentHash = undefined;
+            console.error(e)
+        });
+}, 3600 * 1000 * 2); //every 2h
 
 self.addEventListener('message', (event) => {
     try {

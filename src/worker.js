@@ -1,15 +1,11 @@
 import {store} from "./store.js";
 
 export const setupWorker = () => {
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            Notification.requestPermission().then(() => {
-                console.info("notifications setup done.")
-            }).catch(console.error)
+    window.addEventListener('load', () => {
+        if ('serviceWorker' in navigator) {
             sendToWorker(store.currentClass, store.school)
-        })
-
-    }
+        }
+    })
 }
 
 export const sendToWorker = (cls, school) => {
