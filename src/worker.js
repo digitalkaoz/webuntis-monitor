@@ -1,8 +1,14 @@
+import {store} from "./store.js";
+
 export const setupWorker = () => {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            Notification.requestPermission().then(console.log).catch(console.error)
+            Notification.requestPermission().then(() => {
+                console.info("notifications setup done.")
+            }).catch(console.error)
+            sendToWorker(store.currentClass, store.school)
         })
+
     }
 }
 
@@ -18,5 +24,14 @@ export const sendToWorker = (cls, school) => {
                 school: school
             }))
         }
+        sw.addEventListener("updatefound", () => {
+            const installingWorker = sw.installing;
+            installingWorker.onstatechange = () => {
+                installingWorker.postMessage(JSON.stringify({
+                    cls: cls,
+                    school: school
+                }))
+            }
+        });
     }).catch(e => console.log("no active service worker"))
 }

@@ -1,28 +1,24 @@
 import {VitePWA} from 'vite-plugin-pwa'
 import vercel from 'vite-plugin-vercel';
+import {defineConfig} from "vite";
 
-export default {
+export default defineConfig(({mode}) => ({
     vercel: {
     },
     plugins: [
         vercel(),
         VitePWA({
-            strategies: 'injectManifest',
-            srcDir: 'src',
-            filename: 'sw.js',
             devOptions: {
-                enabled: true
-                /* other options */
+                enabled: mode === "development"
+            },
+            workbox: {
+                globPatterns: ['**/*.{js,css,html,ico,png}'],
+                importScripts: ["./src/sw.js"],
             },
             injectManifest: {
                 globPatterns: ['**/*.{js,css,html,ico,png}'],
             },
             registerType: 'autoUpdate',
-            //workbox: {
-            //    globPatterns: ['**/*.{js,css,html,ico,png}'],
-            //    globIgnores: ['sw.js', 'sw.js', 'registerSW.js'],
-            //    importScripts: ["./sw.js"],
-            //},
             includeAssets: ['favicon.ico', 'apple-touch-icon-180x180.png', 'maskable-icon-512x512.png'],
             manifest: {
                 name: 'WebUntis Monitor',
@@ -55,4 +51,4 @@ export default {
             }
         })
     ]
-}
+}))

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    @apply flex !important;
+}
 header nav {
     @apply flex items-center justify-between bg-teal-500 p-6 dark:bg-gray-800 flex-col md:flex-row;
 

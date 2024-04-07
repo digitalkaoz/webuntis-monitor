@@ -41,11 +41,13 @@ store.$on('date', (d) => {
     }
 })
 
-watch(() => {
-    store.filteredData = store.data.filter(r => store.currentClass === undefined || r.class === store.currentClass)
-    store.emptyText = store.filteredData.length === 0 ? `Keine Planänderung für ${store.currentClass ? `die ${store.currentClass}` : 'All'} am ${dateFromIsoString(store.date).toLocaleDateString([navigator.language])}.` : undefined
-})
-
+watch(
+    () => store.data.filter(r => store.currentClass === undefined || r.class === store.currentClass),
+    (filtered) => {
+        store.filteredData = filtered;
+        store.emptyText = store.filteredData.length === 0 ? `Keine Planänderung für ${store.currentClass ? `die ${store.currentClass}` : 'All'} am ${dateFromIsoString(store.date).toLocaleDateString([navigator.language])}.` : undefined
+    }
+)
 const fetchData = (d) => {
     getData(d)
         .then(initializeStore)
