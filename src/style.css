@@ -107,7 +107,7 @@ dialog {
 }
 
 #notifications {
-    margin: 20px auto;
+    margin: 0 auto;
     > div {
         @apply px-4 z-50 rounded-lg w-full flex items-center mx-auto flex-row justify-around;
     }
