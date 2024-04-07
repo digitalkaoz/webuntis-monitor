@@ -13,7 +13,7 @@ export default defineConfig(({mode}) => ({
             },
             workbox: {
                 globPatterns: ['**/*.{js,css,html,ico,png}'],
-                importScripts: ["./src/sw.js"],
+                importScripts: ["/sw-timetable.js"],
             },
             injectManifest: {
                 globPatterns: ['**/*.{js,css,html,ico,png}'],
