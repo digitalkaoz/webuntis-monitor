@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    @apply flex !important;
+}
 header nav {
     @apply flex items-center justify-between bg-teal-500 p-6 dark:bg-gray-800 flex-col md:flex-row;
 
@@ -51,7 +54,7 @@ main {
 }
 
 footer {
-    @apply bg-teal-500 rounded-lg shadow m-4 dark:bg-gray-800 mb-4;
+    @apply bg-teal-500 rounded-lg shadow m-4 dark:bg-gray-800 mb-4 drop-shadow-lg;
 
     margin:10px auto;
 
@@ -103,6 +106,23 @@ dialog {
 
 }
 
+#notifications {
+    margin: 0 auto;
+    > div {
+        @apply px-4 z-50 rounded-lg w-full flex items-center mx-auto flex-row justify-around;
+    }
+    a {
+        @apply bg-teal-500 p-2 text-white rounded m-4 cursor-pointer shadow-lg;
+
+        &:hover {
+            @apply shadow-fuchsia-300
+        }
+
+        &.ghost {
+            @apply border-teal-500 bg-transparent border text-teal-500;
+        }
+    }
+}
 nav .logo-container .time, td .time {
     @apply text-sm font-light ml-4;
 }

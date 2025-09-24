@@ -11,7 +11,7 @@
     <title>WebUntis Monitor</title>
     <meta name="description" content="filterable WebUntis Monitor">
 </head>
-<body class="flex flex-col h-screen">
+<body class="flex flex-col h-screen" style="display: none">
 
 <header>
     <nav>
@@ -36,6 +36,9 @@
 </header>
 
 <main>
+    <div id="error"></div>
+    <div id="notifications"></div>
+
     <table id="table">
         <thead>
         <tr>
@@ -49,7 +52,6 @@
         </thead>
         <tbody></tbody>
     </table>
-    <div id="error"></div>
 </main>
 
 <footer>
